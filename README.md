@@ -9,7 +9,7 @@ QTLseqr was developed and published by Ben N. Mansfeld and Rebecca Grumet
 and all credit should go to them. We forked the software from 
 [their github repository](https://github.com/bmansfeld/QTLseqr/) 
 and made minor changes to adopt it to our needs. For more detailed instructions 
-on usage please read the vignette of the original  [here](https://github.com/bmansfeld/QTLseqr/raw/master/vignettes/QTLseqr.pdf)**
+on usage please read the vignette of the original  [here](https://github.com/bmansfeld/QTLseqr/raw/master/vignettes/QTLseqr.pdf).
 
 **If you use QTLseqr, please cite:**
 
@@ -34,7 +34,7 @@ for statistical significance.
 When using QTLseqr please make sure you also cite the publications that first described the respective 
 method and statistic you work with: 
 
-QTL-seq:
+**QTL-seq**
 
 > Takagi, H., Abe, A., Yoshida, K., Kosugi, S., Natsume, S., Mitsuoka,
 > C., Uemura, A., Utsushi, H., Tamiru, M., Takuno, S., Innan, H., Cano,
@@ -43,7 +43,7 @@ QTL-seq:
 > from two bulked populations. *Plant J*, 74: 174–183.
 > [doi:10.1111/tpj.12105](https://onlinelibrary.wiley.com/doi/full/10.1111/tpj.12105)
 
-G prime:
+**G prime**
 
 > Magwene PM, Willis JH, Kelly JK (2011) The Statistics of Bulk
 > Segregant Analysis Using Next Generation Sequencing. *PLOS
@@ -93,15 +93,18 @@ Simply install them as you go.  For better performance, some functions of QTLseq
 On Linux the install should work out of the box, for Windows and Mac you will need Rtools and Xcode, respectively. You might need assistance from your system administrator.
 
 
-# Example
+# Example Analysis
 
+**Expected Results**
 This example figure is taken from Mansfeld et al. and serves for comparison to our/your own analysis
 
 ![Example
 figure](https://github.com/warthmann/QTLseqr/blob/master/all_plots.png
 "Norman Figure")
 
-# Step-by-step instructions how to import and analyze NGS-BSA data.
+**Step-by-step instructions**
+
+The below is funcitonal R code. Copy/Paste into R-Studio.
 
 ``` r
 
@@ -128,19 +131,19 @@ file <- "wGQ-Filt-freebayes~bwa~IRGSP-1.0~both-segregant_bulks~filtered-default.
 Chroms <- c("NC_029256.1","NC_029257.1","NC_029258.1","NC_029259.1","NC_029260.1","NC_029261.1","NC_029262.1","NC_029263.1","NC_029264.1","NC_029265.1","NC_029266.1","NC_029267.1")
 ```
 
-##reference=genomes_and_annotations/IRGSP-1.0/GCF_001433935.1_IRGSP-1.0_genomic.fna
-##contig=<ID=NC_029256.1,length=43270923>
-##contig=<ID=NC_029257.1,length=35937250>
-##contig=<ID=NC_029258.1,length=36413819>
-##contig=<ID=NC_029259.1,length=35502694>
-##contig=<ID=NC_029260.1,length=29958434>
-##contig=<ID=NC_029261.1,length=31248787>
-##contig=<ID=NC_029262.1,length=29697621>
-##contig=<ID=NC_029263.1,length=28443022>
-##contig=<ID=NC_029264.1,length=23012720>
-##contig=<ID=NC_029265.1,length=23207287>
-##contig=<ID=NC_029266.1,length=29021106>
-##contig=<ID=NC_029267.1,length=27531856>
+##reference=genomes_and_annotations/IRGSP-1.0/GCF_001433935.1_IRGSP-1.0_genomic.fna |
+##contig=<ID=NC_029256.1,length=43270923> |
+##contig=<ID=NC_029257.1,length=35937250> |
+##contig=<ID=NC_029258.1,length=36413819> |
+##contig=<ID=NC_029259.1,length=35502694> |
+##contig=<ID=NC_029260.1,length=29958434> |
+##contig=<ID=NC_029261.1,length=31248787> |
+##contig=<ID=NC_029262.1,length=29697621> |
+##contig=<ID=NC_029263.1,length=28443022> | 
+##contig=<ID=NC_029264.1,length=23012720> |
+##contig=<ID=NC_029265.1,length=23207287> |
+##contig=<ID=NC_029266.1,length=29021106> |
+##contig=<ID=NC_029267.1,length=27531856> |
 
 ``` r
 #Import the data from the VCF file
