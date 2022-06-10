@@ -8,8 +8,8 @@ QTLseqr is an R package for Bulk Segregant Analysis from NGS data.
 QTLseqr was developed and published by Ben N. Mansfeld and Rebecca Grumet 
 and all credit should go to them. We forked the software from 
 [their github repository](https://github.com/bmansfeld/QTLseqr/) 
-and made minor changes to adopt it to our needs. For more detailed instructions 
-on usage please read the [vignette of the original](https://github.com/bmansfeld/QTLseqr/raw/master/vignettes/QTLseqr.pdf).
+and made minor changes to adopt it to our needs. We provide a brief example analysis below, 
+for detailed instructions on usage please read the [vignette of the original](https://github.com/bmansfeld/QTLseqr/raw/master/vignettes/QTLseqr.pdf).
 
 **If you use QTLseqr, please cite:**
 
@@ -20,7 +20,7 @@ on usage please read the [vignette of the original](https://github.com/bmansfeld
 
 ## Software and Methods
 
-Next Generation Sequencing Bulk Segregant Analysis (NGS-BSA) is an effective tool
+Bulk Segregant Analysis with Next Generation Sequencing (NGS-BSA) is an effective tool
 for genetic mapping of causal loci, including QTLs. NGS-BSA is a popular technique and
 there exist several statistical approaches to the problem. Ben N. Mansfeld and Rebecca Grumet 
 implemented two of them in R: 
@@ -72,7 +72,7 @@ on the
 
 # Installating QTLseqr
 
-Install the PBGL version of QTLseqr from github with:
+Install the PBGL version of QTLseqr from github like so:
 
 ``` r
 #install the dependencies
@@ -95,15 +95,15 @@ On Linux the install should work out of the box, for Windows and Mac you will ne
 
 **Expected Results**
 
-This example figure is taken from Mansfeld et al. and serves for comparison to our/your own analysis
+This example figure is taken from Mansfeld et al. and serves for comparison to our/your own analysis.
 
 ![Example
 figure](https://github.com/warthmann/QTLseqr/blob/master/all_plots.png
-"Norman Figure")
+"Mansfeld Figure")
 
 **Step-by-step instructions**
 
-The below is funcitonal R code. Copy/Paste into R-Studio.
+The below is functional R code. Copy/Paste into R-Studio.
 
 ``` r
 
