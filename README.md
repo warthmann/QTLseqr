@@ -143,19 +143,19 @@ Chroms <- c("NC_029256.1",
             "NC_029267.1")
 ```
 
-##reference=genomes_and_annotations/IRGSP-1.0/GCF_001433935.1_IRGSP-1.0_genomic.fna 
-##contig=<ID=NC_029256.1,length=43270923>  
-##contig=<ID=NC_029257.1,length=35937250>  
-##contig=<ID=NC_029258.1,length=36413819>  
-##contig=<ID=NC_029259.1,length=35502694>  
-##contig=<ID=NC_029260.1,length=29958434>  
-##contig=<ID=NC_029261.1,length=31248787>  
-##contig=<ID=NC_029262.1,length=29697621>  
-##contig=<ID=NC_029263.1,length=28443022>  
-##contig=<ID=NC_029264.1,length=23012720>  
-##contig=<ID=NC_029265.1,length=23207287>  
-##contig=<ID=NC_029266.1,length=29021106>  
-##contig=<ID=NC_029267.1,length=27531856>  
+\##reference=genomes_and_annotations/IRGSP-1.0/GCF_001433935.1_IRGSP-1.0_genomic.fna 
+\##contig=<ID=NC_029256.1,length=43270923>  
+\##contig=<ID=NC_029257.1,length=35937250>  
+\##contig=<ID=NC_029258.1,length=36413819>  
+\##contig=<ID=NC_029259.1,length=35502694>  
+\##contig=<ID=NC_029260.1,length=29958434>  
+\##contig=<ID=NC_029261.1,length=31248787>  
+\##contig=<ID=NC_029262.1,length=29697621>  
+\##contig=<ID=NC_029263.1,length=28443022>  
+\##contig=<ID=NC_029264.1,length=23012720>  
+\##contig=<ID=NC_029265.1,length=23207287>  
+\##contig=<ID=NC_029266.1,length=29021106>  
+\##contig=<ID=NC_029267.1,length=27531856>  
 
 ``` r
 #Import the data from the VCF file
