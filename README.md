@@ -166,7 +166,6 @@ $ less -S wGQ-Filt-freebayes~bwa~IRGSP-1.0~both-segregant_bulks~filtered-default
 
 ``` r
 #Import the data from the VCF file
-
 df <- 
     importFromVCF(
         file = file,
@@ -175,10 +174,8 @@ df <-
         chromList = Chroms
      )
 
-
 #Filter SNPs based on user-specified thresholds. 
 #Remove the GQ filter if GQ is not present in the FORMAT field of your file
-
 df_filt <-
     filterSNPs(
         SNPset = df,
@@ -190,7 +187,6 @@ df_filt <-
         minGQ = 99,
         verbose = TRUE
     )
-
 
 #Run G' analysis
 df_filt <- runGprimeAnalysis(
