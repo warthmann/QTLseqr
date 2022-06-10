@@ -1,25 +1,38 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# pbglQTLseqr
+# QTLseqr (pbgl version)
 
 QTLseqr is an R package for Bulk Segregant Analysis.
 
 QTLseqr was developed and published by Ben N. Mansfeld and Rebecca Grumet 
 and all credit should go to them. We forked the software from 
 [their github repository](https://github.com/bmansfeld/QTLseqr/) 
-and made minor changes to adopt it to our needs. 
+and made minor changes to adopt it to our needs. For more detailed instructions 
+on usage please read the vignette of the original  [here](https://github.com/bmansfeld/QTLseqr/raw/master/vignettes/QTLseqr.pdf)**
 
-### **For more detailed instructions please read the vignette of the original  [here](https://github.com/bmansfeld/QTLseqr/raw/master/vignettes/QTLseqr.pdf)**
-
-**If you use QTLseqr in published research, please cite:**
+**If you use QTLseqr, please cite:**
 
 > Mansfeld B.N. and Grumet R, QTLseqr: An R package for bulk segregant
-> analysis with next-generation sequencing *The Plant Genome*
+> analysis with next-generation sequencing *The Plant Genome* (2018)
 > [doi:10.3835/plantgenome2018.01.0006](https://dl.sciencesocieties.org/publications/tpg/abstracts/11/2/180006)
 
-QTLseqR in an R implementation of established methods and statistics. 
-Make sure you also cite the respective method you work with: 
+
+## Software and Methods
+
+Next Generation Sequencing Bulk Segregant Analysis (NGS-BSA) is an effective tool
+for genetic mapping of causal loci, including QTLs. NGS-BSA is a popular technique and
+there exist several statistical approaches to the problem. Ben N. Mansfeld and Rebecca Grumet 
+implemented two of them in R: 
+
+* QTL-seq (deltaSNP index)
+* G’ 
+
+QTLseqr, can import and filter SNP data, calculate SNP distributions, 
+relative allele frequencies, G’ values, log10(p-values) and the corrsponding thresholds
+for statistical significance. 
+When using QTLseqr please make sure you also cite the publications that first described the respective 
+method and statistic you work with: 
 
 QTL-seq:
 
@@ -37,34 +50,22 @@ G prime:
 > Computational Biology* 7(11): e1002255.
 > [doi.org/10.1371/journal.pcbi.1002255](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002255)
 
-## Abstract
-
-Next Generation Sequencing Bulk Segregant Analysis (NGS-BSA) is
-efficient in detecting quantitative trait loci (QTL). Despite the
-popularity of NGS-BSA and the R statistical platform, no R packages are
-currently available for NGS-BSA. We present QTLseqr, an R package for
-NGS-BSA that identifies QTL using two statistical approaches: QTL-seq
-and G’. These approaches use a simulation method and a tricube smoothed
-G statistic, respectively, to identify and assess statistical
-significance of QTL. QTLseqr, can import and filter SNP data, calculate
-SNP distributions, relative allele frequencies, G’ values, and
-log10(p-values), enabling identification and plotting of QTL.
-
 
 **Example Analysis**
 
 The data for below example analysis and tutorial is drawn from a study on 
-cold tolerance in rice by [Yang Z et al (2013)](https://doi.org/10.1371/journal.pone.0068433)
+cold tolerance in rice by [Yang Z et al (2013)](https://doi.org/10.1371/journal.pone.0068433).
 
 >Yang Z, Huang D, Tang W, Zheng Y, Liang K, Cutler AJ, et al. (2013) Mapping of Quantitative Trait Loci >Underlying Cold Tolerance in Rice Seedlings via High-Throughput Sequencing of Pooled Extremes. 
 >PLoS ONE 8(7): e68433. https://doi.org/10.1371/journal.pone.0068433
 
-The raw data is available from NCBI's short read archive in BioProjet [PRJNA198759](https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA198759)
-Run SRR834931: Rice ET pool (385 extremely tolerant individuals) 
-Run: SRR834927 Rice ES pool (430 extremely sensitive individuals)
+The raw data is available from NCBI's short read archive in [BioProjet PRJNA198759](https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA198759)
+
+* Run SRR834931: Rice ET pool (385 extremely tolerant individuals) 
+* Run SRR834927: Rice ES pool (430 extremely sensitive individuals)
 
 We have downloaded the raw data, performed alignment and variant calling against
-the nipponbare reference genome IRGSP-1.0 with bwa and freebayes. QTLseqr analysis
+the Nipponbare reference genome (IRGSP-1.0) with bwa and freebayes. QTLseqr analysis
 on the 
 [resulting VCF](https://bss1innov1nafa1poc1.blob.core.windows.net/sample-container/Data-for-github/wGQ-Filt-freebayes~bwa~IRGSP-1.0~both-segregant_bulks~filtered-default.vcf) 
 file produced by freebayes can be performed as outlined below.
@@ -75,40 +76,32 @@ file produced by freebayes can be performed as outlined below.
 Install the pbgl version of QTLseqr from github with:
 
 ``` r
-# install devtools to download and install packages from github
-install.packages("devtools")
 
 #install the dependencies
 install.packages(c("data.table", "dplyr", "tidyr", "vcfR", "ggplot2"), dependencies=TRUE)
 
-# use devtools to install QTLseqr
+# install devtools
+install.packages("devtools")
+
+# use devtools to install QTLseqr from github
 #devtools::install_github("bmansfeld/QTLseqr")
 devtools::install_github("warthmann/QTLseqr")
 ```
 
-**Note:** Apart from regular package dependencies, there are some
-Bioconductor tools that we use as well, as such you will be prompted to
-install support for Bioconductor, if you haven’t already. QTLseqr makes
-use of C++ to make some tasks significantly faster (like counting SNPs).
-Because of this, in order to install QTLseqr from github you will be
-required to install some compiling tools (Rtools and Xcode, for Windows
-and Mac, respectively).
+**Note:** You might get prompted for additional dependencies and Bioconductor support. 
+Simply install them as you go.  For better performance, some functions of QTLseqR (e.g., counting SNPs) are implemented in C++. Hence, the install of QTLseqr from github you will require the compiler. 
+On Linux the install should work out of the box, for Windows and Mac you will need Rtools and Xcode, respectively. You might need assistance from your system administrator.
 
 
 # Example
 
-This example figure is from Mansfeld et al. and serves for comparison to our/your own analysis
-
-![Example
-figure](https://github.com/bmansfeld/QTLseqr/raw/master/all_plots.png
-"Example figure")
+This example figure is taken from Mansfeld et al. and serves for comparison to our/your own analysis
 
 ![Example
 figure](https://github.com/warthmann/QTLseqr/blob/master/all_plots.png
 "Norman Figure")
 
-This is a basic example which shows you how to import and analyze
-NGS-BSA data.
+# Step-by-step instructions how to import and analyze NGS-BSA data.
 
 ``` r
 
@@ -133,6 +126,7 @@ file <- "wGQ-Filt-freebayes~bwa~IRGSP-1.0~both-segregant_bulks~filtered-default.
 
 #Choose which chromosomes will be included in the analysis (i.e. exclude smaller contigs)
 Chroms <- c("NC_029256.1","NC_029257.1","NC_029258.1","NC_029259.1","NC_029260.1","NC_029261.1","NC_029262.1","NC_029263.1","NC_029264.1","NC_029265.1","NC_029266.1","NC_029267.1")
+```
 
 ##reference=genomes_and_annotations/IRGSP-1.0/GCF_001433935.1_IRGSP-1.0_genomic.fna
 ##contig=<ID=NC_029256.1,length=43270923>
@@ -148,6 +142,8 @@ Chroms <- c("NC_029256.1","NC_029257.1","NC_029258.1","NC_029259.1","NC_029260.1
 ##contig=<ID=NC_029266.1,length=29021106>
 ##contig=<ID=NC_029267.1,length=27531856>
 
+``` r
+#Import the data from the VCF file
 
 df <- 
     importFromVCF(
@@ -158,7 +154,8 @@ df <-
      )
 
 
-#Filter SNPs based on some criteria
+#Filter SNPs based on user-specified thresholds. Remove the GQ filter if GQ is not present in the FORMAT field
+
 df_filt <-
     filterSNPs(
         SNPset = df,
@@ -190,16 +187,25 @@ df_filt <- runQTLseqAnalysis(
     intervals = c(95, 99)
 )
 
-#Plot
+#Plot SNP density
+plotQTLStats(SNPset = df_filt, var = "nSNPs", plotIntervals = TRUE)
+
+#Plot the statistics
 plotQTLStats(SNPset = df_filt, var = "Gprime", plotThreshold = TRUE, q = 0.01)
 plotQTLStats(SNPset = df_filt, var = "deltaSNP", plotIntervals = TRUE)
-plotQTLStats(SNPset = df_filt, var = "nSNPs", plotIntervals = TRUE)
 plotQTLStats(SNPset = df_filt, var = "negLog10Pval", plotIntervals = TRUE)
 
-#Analytics
+#get a list of significant Loci
+getQTLTable(SNPset = df_filt, method = "Gprime", alpha=0.01)
+getQTLTable(SNPset = df_filt, method = "QTLseq")
+
+?getQTLTable
+
+#export as table
+getQTLTable(SNPset = df_filt, method = "Gprime", alpha=0.01, export=TRUE, fileName= "my_first_BSA_result.csv")
+
+
+#Additioanl Analytics
 plotGprimeDist(SNPset = df_filt, outlierFilter = "Hampel")
 plotGprimeDist(SNPset = df_filt, outlierFilter = "deltaSNP", filterThreshold = 0.1)
-
-#export summary CSV
-getQTLTable(SNPset = df_filt, alpha = 0.01, export = TRUE, fileName = "my_BSA_QTL.csv")
 ```
