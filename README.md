@@ -76,7 +76,11 @@ Install the PBGL version of QTLseqr from github like so:
 
 ``` r
 #install the dependencies
-install.packages(c("data.table", "dplyr", "tidyr", "vcfR", "ggplot2"), dependencies=TRUE)
+install.packages(c("data.table", 
+                    "dplyr", 
+                    "tidyr", 
+                    "vcfR", 
+                    "ggplot2"), dependencies=TRUE)
 
 # install devtools
 install.packages("devtools", dependencies=TRUE)
