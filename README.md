@@ -28,7 +28,7 @@ implemented two of them in R:
 * QTL-seq (deltaSNP index)
 * G’ 
 
-QTLseqr, can import and filter SNP data, calculate SNP distributions, 
+QTLseqr can import and filter SNP data, calculate SNP distributions, 
 relative allele frequencies, G’ values, log10(p-values) and the corresponding thresholds
 for statistical significance. 
 When using QTLseqr please make sure you also cite the publications that first described the respective 
@@ -67,8 +67,7 @@ The raw data is available from NCBI's short read archive in [BioProjet PRJNA1987
 We have downloaded the raw data, performed alignment and variant calling against
 the Nipponbare reference genome (IRGSP-1.0) with bwa and freebayes. QTLseqr analysis
 on the 
-[resulting VCF](https://bss1innov1nafa1poc1.blob.core.windows.net/sample-container/Data-for-github/wGQ-Filt-freebayes~bwa~IRGSP-1.0~both-segregant_bulks~filtered-default.vcf) 
-file produced by freebayes can be performed as outlined below.
+[resulting VCF file produced by freebayes](https://bss1innov1nafa1poc1.blob.core.windows.net/sample-container/Data-for-github/wGQ-Filt-freebayes~bwa~IRGSP-1.0~both-segregant_bulks~filtered-default.vcf) can be performed as outlined below.
 
 
 # Installation
@@ -76,7 +75,6 @@ file produced by freebayes can be performed as outlined below.
 Install the pbgl version of QTLseqr from github with:
 
 ``` r
-
 #install the dependencies
 install.packages(c("data.table", "dplyr", "tidyr", "vcfR", "ggplot2"), dependencies=TRUE)
 
@@ -89,8 +87,8 @@ devtools::install_github("warthmann/QTLseqr")
 ```
 
 **Note:** You might get prompted for additional dependencies and Bioconductor support. 
-Simply install them as you go.  For better performance, some functions of QTLseqR (e.g., counting SNPs) are implemented in C++. Hence, the install of QTLseqr from github you will require the compiler. 
-On Linux the install should work out of the box, for Windows and Mac you will need Rtools and Xcode, respectively. You might need assistance from your system administrator.
+Simply install them as you go. For better performance, some functions of QTLseqR (e.g., counting SNPs) are implemented in C++. Hence, the install of QTLseqr from github requires the compiler. 
+On Linux the install should work out of the box, for Windows and Mac you will need Rtools or Xcode, respectively. You might need assistance from your system administrator.
 
 
 # Example Analysis
@@ -201,7 +199,7 @@ df_filt <- runGprimeAnalysis(
 )
 
 #Run QTLseq analysis
-#bulkSize: number of individuals in the respective pools. The first value is the  HighBulk!
+#bulkSize: number of individuals in the respective pools. The first value is the HighBulk!
 df_filt <- runQTLseqAnalysis(
     SNPset = df_filt,
     windowSize = 1e6,
