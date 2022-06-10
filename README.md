@@ -122,8 +122,8 @@ library("QTLseqr")
 
 
 #Set sample
-HighBulk <- "ET-pool-385" # SRA-sample: SRR834931
-LowBulk <- "ES-pool-430" # SRA-sample: SRR834927 
+HighBulk <- "ET-pool-385" # SRA-run: SRR834931
+LowBulk <- "ES-pool-430" # SRA-run: SRR834927 
 
 #set the VCF file name
 file <- "wGQ-Filt-freebayes~bwa~IRGSP-1.0~both-segregant_bulks~filtered-default.vcf"
@@ -201,11 +201,12 @@ df_filt <- runGprimeAnalysis(
 )
 
 #Run QTLseq analysis
+#bulkSize: number of individuals in the respective pools. The first value is the  HighBulk!
 df_filt <- runQTLseqAnalysis(
     SNPset = df_filt,
     windowSize = 1e6,
     popStruc = "F2",
-    bulkSize = c(385, 430),
+    bulkSize = c(385, 430), 
     replications = 10000,
     intervals = c(95, 99)
 )
