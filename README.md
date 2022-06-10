@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# QTLseqr v0.7.5.2
+# pbglQTLseqr v1
 
 QTLseqr is an R package for QTL mapping using NGS Bulk Segregant
 Analysis.
@@ -32,7 +32,8 @@ You can install QTLseqr from github with:
 install.packages("devtools")
 
 # use devtools to install QTLseqr
-devtools::install_github("bmansfeld/QTLseqr")
+#devtools::install_github("bmansfeld/QTLseqr")
+devtools::install_github("warthmann/QTLseqr")
 ```
 
 **Note:** Apart from regular package dependencies, there are some
@@ -97,25 +98,50 @@ NGS-BSA data.
 
 ``` r
 
+#load dependencies
+library("devtools")
+library("data.table")
+library("dplyr")
+library("tidyr")
+library("vcfR")
+library("ggplot2")
+
 #load the package
+#library("QTLseqr")
 library("QTLseqr")
 
+
 #Set sample and file names
-HighBulk <- "SRR834931"
-LowBulk <- "SRR834927"
-file <- "SNPs_from_GATK.table"
+#HighBulk <- "SRR834931"
+#LowBulk <- "SRR834927"
+HighBulk <- "ET-pool-385"
+LowBulk <- "ES-pool-430"
+
+#file <- "SNPs_from_GATK.table"
+#file <- "/home/pbgl/sandbox/freebayes~bwa~IRGSP-1.0~both-segregant_bulks~filtered-strict.vcf"
+file <- "wGQ-Filt-freebayes~bwa~IRGSP-1.0~both-segregant_bulks~filtered-default.vcf"
 
 #Choose which chromosomes will be included in the analysis (i.e. exclude smaller contigs)
-Chroms <- paste0(rep("Chr", 12), 1:12)
+#Chroms <- paste0(rep("Chr", 12), 1:12)
+Chroms <- c("NC_029259.1","NC_029260.1")
 
-#Import SNP data from file
-df <-
-    importFromGATK(
+#Import SNP data from table
+#df <-
+#    importFromGATK(
+#        file = file,
+#        highBulk = HighBulk,
+#        lowBulk = LowBulk,
+#        chromList = Chroms
+#     )
+
+df <- 
+    importFromVCF(
         file = file,
         highBulk = HighBulk,
         lowBulk = LowBulk,
         chromList = Chroms
      )
+
 
 #Filter SNPs based on some criteria
 df_filt <-
@@ -125,7 +151,9 @@ df_filt <-
         minTotalDepth = 100,
         maxTotalDepth = 400,
         minSampleDepth = 40,
-        minGQ = 99
+        minGQ = 99,
+        depthDifference = 100,
+        verbose = TRUE
     )
 
 

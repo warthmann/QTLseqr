@@ -276,17 +276,14 @@ importFromTable <-
 #' @param lowBulk LowBulk name
 #' @param chromList chromosome list
 #' @param filter Boolean Value True or False. TRUE if you want to filter by "PASS", FALSE you want no filter
-#' @param outile Boolean Value True or False. If TRUE table is written to file.CSV
+#' @param filename Provide prefix to file name always ends in .CSV
 #' @return Returns a data frame
 #' @export importFromVCF
 
 importFromVCF <- function(file,
                           highBulk = character(),
                           lowBulk = character(),
-                          chromList = NULL,
-                          filter = NULL,
-                          outfile = NULL)
-                          {
+                          chromList = NULL) {
 
     vcf <- vcfR::read.vcfR(file = file)
     message("Keeping SNPs that pass all filters")
@@ -342,7 +339,6 @@ importFromVCF <- function(file,
         message("Removing the following chromosomes: ", paste(unique(SNPset$CHROM)[!unique(SNPset$CHROM) %in% chromList], collapse = ", "))
         SNPset <- SNPset[SNPset$CHROM %in% chromList, ]
     }
-    SNPset$POS <- as.numeric(SNPset$POS)
     as.data.frame(SNPset)
 }
 
