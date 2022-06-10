@@ -145,9 +145,8 @@ Chroms <- c("NC_029256.1",
 
 Chromosome information can be found in the VCF file header:
 
-```{r, engine = 'bash', eval=FALSE}
-
-$bcftools view wGQ-Filt-freebayes~bwa~IRGSP-1.0~both-segregant_bulks~filtered-default.vcf | less -S
+```console
+$ bcftools view wGQ-Filt-freebayes~bwa~IRGSP-1.0~both-segregant_bulks~filtered-default.vcf | less -S
 [...]
 ##reference=genomes_and_annotations/IRGSP-1.0/GCF_001433935.1_IRGSP-1.0_genomic.fna 
 ##contig=<ID=NC_029256.1,length=43270923>  
