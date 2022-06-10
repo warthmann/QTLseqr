@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# QTLseqr (pbgl version)
+# QTLseqr (PBGL version)
 
 QTLseqr is an R package for Bulk Segregant Analysis.
 
@@ -29,12 +29,12 @@ implemented two of them in R:
 * G’ 
 
 QTLseqr, can import and filter SNP data, calculate SNP distributions, 
-relative allele frequencies, G’ values, log10(p-values) and the corrsponding thresholds
+relative allele frequencies, G’ values, log10(p-values) and the corresponding thresholds
 for statistical significance. 
 When using QTLseqr please make sure you also cite the publications that first described the respective 
 method and statistic you work with: 
 
-**QTL-seq**
+**QTL-seq (DeltaSNP-Index)**
 
 > Takagi, H., Abe, A., Yoshida, K., Kosugi, S., Natsume, S., Mitsuoka,
 > C., Uemura, A., Utsushi, H., Tamiru, M., Takuno, S., Innan, H., Cano,
@@ -217,6 +217,17 @@ plotQTLStats(SNPset = df_filt, var = "nSNPs", plotIntervals = TRUE)
 plotQTLStats(SNPset = df_filt, var = "Gprime", plotThreshold = TRUE, q = 0.01)
 plotQTLStats(SNPset = df_filt, var = "deltaSNP", plotIntervals = TRUE)
 plotQTLStats(SNPset = df_filt, var = "negLog10Pval", plotIntervals = TRUE)
+
+#Plot only a subset of Chromosomes
+plotQTLStats(
+              SNPset = df_filt, 
+              var = "Gprime", 
+              plotThreshold = TRUE, 
+              q = 0.01, 
+              subset=c("NC_029256.1","NC_029263.1")
+              )
+
+?plotQTLStats
 
 #get a list of significant Loci
 getQTLTable(SNPset = df_filt, method = "Gprime", alpha=0.01)
