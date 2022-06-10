@@ -217,7 +217,7 @@ plotQTLStats(SNPset = df_filt, var = "nSNPs", plotIntervals = TRUE)
 #Plot the statistics
 plotQTLStats(SNPset = df_filt, var = "deltaSNP", plotIntervals = TRUE)
 plotQTLStats(SNPset = df_filt, var = "Gprime", plotThreshold = TRUE, q = 0.01)
-plotQTLStats(SNPset = df_filt, var = "negLog10Pval", plotIntervals = TRUE)
+plotQTLStats(SNPset = df_filt, var = "negLog10Pval", plotThreshold = TRUE)
 
 #Plot only a subset of Chromosomes
 plotQTLStats(
