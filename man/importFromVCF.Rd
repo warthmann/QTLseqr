@@ -8,7 +8,9 @@ importFromVCF(
   file,
   highBulk = character(),
   lowBulk = character(),
-  chromList = NULL
+  chromList = NULL,
+  filter = FALSE,
+  outfile = FALSE
 )
 }
 \arguments{
@@ -20,9 +22,9 @@ importFromVCF(
 
 \item{chromList}{chromosome list}
 
-\item{filter}{Boolean Value True or False. TRUE if you want to filter by "PASS", FALSE you want no filter}
+\item{filter}{Boolean Value True or False. If TRUE only variants with "PASS" in the VCF file FILTER column will be used}
 
-\item{filename}{Provide prefix to file name always ends in .CSV}
+\item{outile}{Boolean Value True or False. If TRUE table is written to file.CSV}
 }
 \value{
 Returns a data frame

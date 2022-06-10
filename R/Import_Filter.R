@@ -275,7 +275,7 @@ importFromTable <-
 #' @param highBulk Highbulk name
 #' @param lowBulk LowBulk name
 #' @param chromList chromosome list
-#' @param filter Boolean Value True or False. TRUE if you want to filter by "PASS", FALSE you want no filter
+#' @param filter Boolean Value True or False. If TRUE only variants with "PASS" in the VCF file FILTER column will be used
 #' @param outile Boolean Value True or False. If TRUE table is written to file.CSV
 #' @return Returns a data frame
 #' @export importFromVCF
@@ -284,13 +284,16 @@ importFromVCF <- function(file,
                           highBulk = character(),
                           lowBulk = character(),
                           chromList = NULL,
-                          filter = NULL,
-                          outfile = NULL)
+                          filter = FALSE,
+                          outfile = FALSE)
                           {
 
     vcf <- vcfR::read.vcfR(file = file)
-    message("Keeping SNPs that pass all filters")
-    #vcf <- vcf[vcf@fix[, "FILTER"] == "PASS"]
+
+    if (filter == TRUE){
+        message("Keeping SNPs that pass all filters")
+        vcf <- vcf[vcf@fix[, "FILTER"] == "PASS"]
+        }
 
     fix <- dplyr::as_tibble(vcf@fix[, c("CHROM", "POS", "REF", "ALT")]) %>% mutate(Key = seq(1:nrow(.)))
 
@@ -343,6 +346,12 @@ importFromVCF <- function(file,
         SNPset <- SNPset[SNPset$CHROM %in% chromList, ]
     }
     SNPset$POS <- as.numeric(SNPset$POS)
+
+    if (outfile == TRUE){
+        message("Writing outfile: ", paste0(file,".csv"))
+        write.csv(SNPset, file=paste0(file,".csv"), row.names=FALSE)
+    }
+
     as.data.frame(SNPset)
 }
 

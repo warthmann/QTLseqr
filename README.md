@@ -69,6 +69,11 @@ G prime method:
 > Computational Biology* 7(11): e1002255.
 > [doi.org/10.1371/journal.pcbi.1002255](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002255)
 
+Rice data on Cold Tolerance:
+
+>Yang Z, Huang D, Tang W, Zheng Y, Liang K, Cutler AJ, et al. (2013) Mapping of Quantitative Trait Loci >Underlying Cold Tolerance in Rice Seedlings via High-Throughput Sequencing of Pooled Extremes. 
+>PLoS ONE 8(7): e68433. https://doi.org/10.1371/journal.pone.0068433
+
 ## Abstract
 
 Next Generation Sequencing Bulk Segregant Analysis (NGS-BSA) is
@@ -123,7 +128,21 @@ file <- "wGQ-Filt-freebayes~bwa~IRGSP-1.0~both-segregant_bulks~filtered-default.
 
 #Choose which chromosomes will be included in the analysis (i.e. exclude smaller contigs)
 #Chroms <- paste0(rep("Chr", 12), 1:12)
-Chroms <- c("NC_029259.1","NC_029260.1")
+Chroms <- c("NC_029256.1","NC_029257.1","NC_029258.1","NC_029259.1","NC_029260.1","NC_029261.1","NC_029262.1","NC_029263.1","NC_029264.1","NC_029265.1","NC_029266.1","NC_029267.1")
+
+##reference=genomes_and_annotations/IRGSP-1.0/GCF_001433935.1_IRGSP-1.0_genomic.fna
+##contig=<ID=NC_029256.1,length=43270923>
+##contig=<ID=NC_029257.1,length=35937250>
+##contig=<ID=NC_029258.1,length=36413819>
+##contig=<ID=NC_029259.1,length=35502694>
+##contig=<ID=NC_029260.1,length=29958434>
+##contig=<ID=NC_029261.1,length=31248787>
+##contig=<ID=NC_029262.1,length=29697621>
+##contig=<ID=NC_029263.1,length=28443022>
+##contig=<ID=NC_029264.1,length=23012720>
+##contig=<ID=NC_029265.1,length=23207287>
+##contig=<ID=NC_029266.1,length=29021106>
+##contig=<ID=NC_029267.1,length=27531856>
 
 #Import SNP data from table
 #df <-
@@ -161,14 +180,16 @@ df_filt <-
 df_filt <- runGprimeAnalysis(
     SNPset = df_filt,
     windowSize = 1e6,
-    outlierFilter = "deltaSNP")
+    outlierFilter = "deltaSNP",
+    filterThreshold = 0.1
+)
 
 #Run QTLseq analysis
 df_filt <- runQTLseqAnalysis(
     SNPset = df_filt,
     windowSize = 1e6,
     popStruc = "F2",
-    bulkSize = c(25, 25),
+    bulkSize = c(385, 430),
     replications = 10000,
     intervals = c(95, 99)
 )
@@ -176,6 +197,12 @@ df_filt <- runQTLseqAnalysis(
 #Plot
 plotQTLStats(SNPset = df_filt, var = "Gprime", plotThreshold = TRUE, q = 0.01)
 plotQTLStats(SNPset = df_filt, var = "deltaSNP", plotIntervals = TRUE)
+plotQTLStats(SNPset = df_filt, var = "nSNPs", plotIntervals = TRUE)
+plotQTLStats(SNPset = df_filt, var = "negLog10Pval", plotIntervals = TRUE)
+
+#Analytics
+plotGprimeDist(SNPset = df_filt, outlierFilter = "Hampel")
+plotGprimeDist(SNPset = df_filt, outlierFilter = "deltaSNP", filterThreshold = 0.1)
 
 #export summary CSV
 getQTLTable(SNPset = df_filt, alpha = 0.01, export = TRUE, fileName = "my_BSA_QTL.csv")
