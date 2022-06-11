@@ -64,13 +64,12 @@ The raw sequencing data is available from NCBI's short read archive in [BioProje
 * Run SRR834931: Rice ET pool (385 extremely tolerant individuals) 
 * Run SRR834927: Rice ES pool (430 extremely sensitive individuals)
 
-We have downloaded the raw data, performed alignment and variant calling against
-the Nipponbare reference genome (IRGSP-1.0) with bwa and freebayes. QTLseqr analysis
-on the 
+We have downloaded the raw data (fasterq-dump SRR834931 SRR834927) and performed alignment (bwa) and variant calling (freebayes) against the Nipponbare reference genome (IRGSP-1.0) with our [PBGL snakemake workflow](https://github.com/pbgl/dna-proto-workflow). 
+QTLseqr analysis on the 
 [resulting VCF file produced by freebayes](https://bss1innov1nafa1poc1.blob.core.windows.net/sample-container/Data-for-github/wGQ-Filt-freebayes~bwa~IRGSP-1.0~both-segregant_bulks~filtered-default.vcf) can be performed as outlined below.
 
 
-# Installating QTLseqr
+# Installing QTLseqr
 
 Install the PBGL version of QTLseqr from github like so:
 
@@ -170,6 +169,7 @@ $ less -S wGQ-Filt-freebayes~bwa~IRGSP-1.0~both-segregant_bulks~filtered-default
 
 ``` r
 #Import the data from the VCF file
+#also calculates SNPindex and DeltaSNP
 df <- 
     importFromVCF(
         file = file,
@@ -184,11 +184,11 @@ df_filt <-
     filterSNPs(
         SNPset = df,
         refAlleleFreq = 0.20,
-        minTotalDepth = 100,
-        maxTotalDepth = 400,
-        minSampleDepth = 40,
-        depthDifference = 100,
-        minGQ = 99,
+        minTotalDepth = 70,
+        maxTotalDepth = 200,
+        minSampleDepth = 30,
+        #depthDifference = 100,
+        minGQ = 150,
         verbose = TRUE
     )
 
@@ -216,7 +216,7 @@ plotQTLStats(SNPset = df_filt, var = "nSNPs", plotIntervals = TRUE)
 
 #Plot the statistics
 plotQTLStats(SNPset = df_filt, var = "deltaSNP", plotIntervals = TRUE)
-plotQTLStats(SNPset = df_filt, var = "Gprime", plotThreshold = TRUE, q = 0.01)
+plotQTLStats(SNPset = df_filt, var = "Gprime", plotThreshold = TRUE, q = 0.02)
 plotQTLStats(SNPset = df_filt, var = "negLog10Pval", plotThreshold = TRUE)
 
 #Plot only a subset of Chromosomes
@@ -224,9 +224,11 @@ plotQTLStats(
               SNPset = df_filt, 
               var = "Gprime", 
               plotThreshold = TRUE, 
-              q = 0.01, 
+              q = 0.02, 
               subset=c("NC_029256.1","NC_029263.1")
               )
+
+
 
 ?plotQTLStats
 
@@ -244,7 +246,46 @@ getQTLTable(SNPset = df_filt,
             fileName= "my_first_BSA_result.csv"
             )
 
-#Additioanl Analytics
+#Additional Analytics
+
 plotGprimeDist(SNPset = df_filt, outlierFilter = "Hampel")
 plotGprimeDist(SNPset = df_filt, outlierFilter = "deltaSNP", filterThreshold = 0.1)
 ```
+
+**Determine Filtering Thresholds**
+
+The below is functional R code. Copy/Paste into R-Studio.
+
+``` r
+library("ggplot2")
+
+#Plotting read depth
+ggplot(data = df) +
+        geom_histogram(aes(x = DP.HIGH + DP.LOW)) +
+        xlim(0,500)
+
+ggplot(data = df) +
+        geom_histogram(aes(x = DP.HIGH + DP.LOW)) +
+        xlim(0,500) + 
+        geom_vline(xintercept=70, colour = "red") +
+        geom_vline(xintercept=200, colour = "red") 
+
+#Plot Genotype Qualities 
+ggplot(data = df) +
+        geom_histogram(aes(x = GQ.HIGH))
+ggplot(data = df) +
+        geom_histogram(aes(x = GQ.LOW))
+
+#Plotting reference allele frequency
+ggplot(data = df) +
+    geom_histogram(aes(x = REF_FRQ))
+
+#Plotting SNP-Index
+#When plotting the SNP-Index of segregating bulks of an F2 population we expect most of the SNPs approximiately normally distributed arround 0.5 and peaks in the tails.
+ggplot(data = df) +
+        geom_histogram(aes(x = SNPindex.HIGH))
+ggplot(data = df) +
+        geom_histogram(aes(x = SNPindex.LOW))
+
+``` 
+        
