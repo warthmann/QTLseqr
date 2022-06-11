@@ -21,12 +21,11 @@ for detailed instructions on usage please read the [vignette of the original](ht
 ## Software and Methods
 
 Bulk Segregant Analysis with Next Generation Sequencing (NGS-BSA) is an effective tool
-for genetic mapping of causal loci, including QTLs. NGS-BSA is a popular technique and
-there exist several statistical approaches to the problem. Ben N. Mansfeld and Rebecca Grumet 
-implemented two of them in R: 
+for genetic mapping of causal loci, including QTLs. NGS-BSA is popular and
+there exist several statistical approaches to the problem. Ben N. Mansfeld and Rebecca Grumet implemented two of them in R: 
 
 * QTL-seq (deltaSNP index)
-* G’ 
+* G’ (G prime)
 
 QTLseqr can import and filter SNP data, calculate SNP distributions, 
 relative allele frequencies, G’ values, log10(p-values), and the corresponding thresholds
@@ -259,7 +258,7 @@ The below is functional R code. Copy/Paste into R-Studio.
 ``` r
 library("ggplot2")
 
-#Plotting read depth
+#Plot read depth(s)
 ggplot(data = df) +
         geom_histogram(aes(x = DP.HIGH + DP.LOW)) +
         xlim(0,500)
@@ -270,17 +269,20 @@ ggplot(data = df) +
         geom_vline(xintercept=70, colour = "red") +
         geom_vline(xintercept=200, colour = "red") 
 
+
+#Plot Reference allele frequency 
+ggplot(data = df) +
+        geom_histogram(aes(x = REF_FRQ))
+
+
 #Plot Genotype Qualities 
 ggplot(data = df) +
         geom_histogram(aes(x = GQ.HIGH))
 ggplot(data = df) +
         geom_histogram(aes(x = GQ.LOW))
+        
 
-#Plotting reference allele frequency
-ggplot(data = df) +
-    geom_histogram(aes(x = REF_FRQ))
-
-#Plotting SNP-Index
+#Plot SNP-Index
 #When plotting the SNP-Index of segregating bulks of an F2 population we expect most of the SNPs approximiately normally distributed arround 0.5 and peaks in the tails.
 ggplot(data = df) +
         geom_histogram(aes(x = SNPindex.HIGH))
