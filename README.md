@@ -77,17 +77,18 @@ install.packages(c("data.table",
 install.packages("devtools", dependencies=TRUE)
 
 # use devtools to install QTLseqr from github
+library("devtools")
 #devtools::install_github("bmansfeld/QTLseqr")
+#devtools::install_github("warthmann/QTLseqr")
 devtools::install_github("pbgl/QTLseqr")
 
 ```
-Alternatively, here are binaries of the pbgl version of the QTLseqr R-package for local install. They were compiled with R version 4.2: 
-[Linux](https://bss1innov1nafa1poc1.blob.core.windows.net/sample-container/Data-for-github/pbglQTLseqr-binaries/QTLseqr_0.7.5.2.tgz), 
+**Note:** You might get prompted for additional dependencies. Simply install them as you go. Some functions of QTLseqr (e.g., counting SNPs) are implemented in C++. Hence, the install of QTLseqr from github requires the compiler. On Linux the install should work out of the box, for Windows and Mac you will need Rtools or Xcode, respectively. You might need assistance from your system administrator.
+
+Alternatively, here are binaries of the pbgl version of the QTLseqr R-package for local install: [Linux](https://bss1innov1nafa1poc1.blob.core.windows.net/sample-container/Data-for-github/pbglQTLseqr-binaries/QTLseqr_0.7.5.2_R_x86_64-pc-linux-gnu.tar.gz), 
 [Mac](https://bss1innov1nafa1poc1.blob.core.windows.net/sample-container/Data-for-github/pbglQTLseqr-binaries/QTLseqr_0.7.5.2.tgz), 
 [Windows](https://bss1innov1nafa1poc1.blob.core.windows.net/sample-container/Data-for-github/pbglQTLseqr-binaries/QTLseqr_0.7.5.2.zip)
-
-
-**Note:** You might get prompted for additional dependencies. Simply install them as you go. Some functions of QTLseqr (e.g., counting SNPs) are implemented in C++. Hence, the install of QTLseqr from github requires the compiler. On Linux the install should work out of the box, for Windows and Mac you will need Rtools or Xcode, respectively. You might need assistance from your system administrator.
+(They were compiled with R version 4.2)
 
 
 # Example Analysis
@@ -116,7 +117,6 @@ library("ggplot2")
 
 #load the package
 library("QTLseqr")
-
 
 #Set samples
 HighBulk <- "ET-pool-385" # SRA-run: SRR834931
