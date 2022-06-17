@@ -228,7 +228,7 @@ plotQTLStats( SNPset = df_filt,
 ?plotQTLStats
 
 #get a list of significant Loci
-getQTLTable(SNPset = df_filt, method = "Gprime", alpha=0.01)
+getQTLTable(SNPset = df_filt, method = "Gprime", alpha=0.02)
 getQTLTable(SNPset = df_filt, method = "QTLseq")
 
 ?getQTLTable
