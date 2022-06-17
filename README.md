@@ -68,6 +68,8 @@ Install the PBGL version of QTLseqr from github like so:
 ``` r
 #install the dependencies
 install.packages(c("data.table", 
+                   "modeest",
+                   "locfit",
                     "dplyr", 
                     "tidyr", 
                     "vcfR", 
