@@ -8,3 +8,5 @@ QTLseqr.Rproj
 calculation tests.xlsx
 README.Rmd
 temp
+case-studies/wGQ-Filt-freebayes~bwa~IRGSP-1.0~both-segregant_bulks~filtered-default.vcf
+case-studies/freebayes_D2.filtered.vcf
