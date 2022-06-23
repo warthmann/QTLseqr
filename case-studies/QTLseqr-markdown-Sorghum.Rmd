@@ -1,0 +1,146 @@
+---
+title: "Sorghum semi-dwarf - QTLseqr Quick-Guide"
+author: "Norman Warthmann, PBG Laboratory"
+date: "6/15/2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Conduct a QTLseqr Analysis
+
+
+```{r, message=FALSE}
+#load dependencies
+library("devtools")
+library("data.table")
+library("dplyr")
+library("tidyr")
+library("vcfR")
+library("ggplot2")
+library("QTLseqr")
+```
+
+## Step-by-Step Guide
+
+**Define the input**
+
+```{r}
+file <- "freebayes_D2.filtered.vcf"
+HighBulk <- "D2_F2_tt" # 45 plants
+LowBulk <- "D2_F2_TT" # 38 plants
+Chroms <- c("Chr01","Chr02","Chr03","Chr04","Chr05",
+            "Chr06","Chr07","Chr08","Chr09","Chr10"
+            )
+```
+
+**Load the data from the VCF file**
+
+```{r, results='hide', warning=FALSE, message=FALSE, error=FALSE, cache=TRUE}
+df <-
+  importFromVCF(
+    file = file,
+    highBulk = HighBulk,
+    lowBulk = LowBulk,
+    chromList = Chroms
+    )
+```
+\newpage
+**Filter the Variants (user-defined criteria)**
+
+```{r, tidy=TRUE, cache=TRUE}
+df_filt <-
+  filterSNPs(
+    SNPset = df,
+    #refAlleleFreq = 0.20,
+    minTotalDepth = 100,
+    maxTotalDepth = 400,
+    minSampleDepth = 30,
+    #depthDifference = 100,
+    minGQ = 99,
+    verbose = TRUE
+    )
+```
+
+**Run the G` (G prime) Analysis**
+
+```{r, results='hide', warning=FALSE, message=FALSE, error=FALSE, cache=TRUE}
+df_filt <-
+  runGprimeAnalysis(
+    SNPset = df_filt,
+    windowSize = 5e6,
+    outlierFilter = "deltaSNP",
+    filterThreshold = 0.1
+    )
+```
+
+**Run the Delta SNP Analysis**
+
+```{r, results='hide', warning=FALSE, message=FALSE, error=FALSE, cache=TRUE}
+df_filt <-
+  runQTLseqAnalysis(
+    SNPset = df_filt,
+    windowSize = 5e6,
+    popStruc = "F2",
+    bulkSize = c(45, 38),
+    replications = 10000,
+    intervals = c(95, 99)
+    )
+```
+
+\newpage
+**Plot SNP Density**
+
+```{r, results='hide', warning=FALSE, message=FALSE, error=FALSE, fig.align = 'center', fig.cap="SNP Density", fig.width=9}
+
+#Plot SNP density
+plotQTLStats(SNPset = df_filt, var = "nSNPs", plotIntervals = TRUE)
+```
+
+
+\newpage
+**Plot G'** 
+
+```{r, results='hide', warning=FALSE, message=FALSE, error=FALSE, fig.align = 'center', fig.cap="G' Values", cache=TRUE}
+plotQTLStats( SNPset = df_filt,
+              var = "Gprime",
+              plotThreshold = TRUE,
+              q = 0.01
+              )
+
+```
+\newpage
+**Plot only Chromosome 4**
+
+```{r,  results='hide', warning=FALSE, message=FALSE, error=FALSE, fig.align = 'center', fig.cap="G' Values for Chromosome 4", cache=TRUE}
+plotQTLStats( SNPset = df_filt,
+              var = "Gprime",
+              plotThreshold = TRUE,
+              q = 0.01,
+              subset=c("Chr04") 
+              )
+```
+
+\newpage
+**Plot Delta SNP**
+
+```{r, results='hide', warning=FALSE, message=FALSE, error=FALSE, fig.align = 'center', fig.cap="Delta SNP", cache=TRUE}
+plotQTLStats(SNPset = df_filt, 
+             var = "deltaSNP", 
+             plotIntervals = TRUE
+             )
+```
+\newpage
+**Plot only Chromosome 4**
+
+```{r, results='hide', warning=FALSE, message=FALSE, error=FALSE, fig.align = 'center', fig.cap="Delta SNP Chromsome 4", cache=TRUE}
+plotQTLStats(SNPset = df_filt, 
+             var = "deltaSNP", 
+             plotIntervals = TRUE, 
+             subset=c("Chr04")
+             )
+```
+
+
