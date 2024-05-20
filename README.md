@@ -29,12 +29,9 @@ QTLseqr can import and filter SNP data, count relative allele frequencies, calcu
 
 **QTL-seq (DeltaSNP-Index)**
 
-> Takagi, H., Abe, A., Yoshida, K., Kosugi, S., Natsume, S., Mitsuoka,
-> C., Uemura, A., Utsushi, H., Tamiru, M., Takuno, S., Innan, H., Cano,
-> L. M., Kamoun, S. and Terauchi, R. (2013), QTL-seq: rapid mapping of
-> quantitative trait loci in rice by whole genome resequencing of DNA
-> from two bulked populations. *Plant J*, 74: 174–183.
-> [doi:10.1111/tpj.12105](https://onlinelibrary.wiley.com/doi/full/10.1111/tpj.12105)
+> Takagi, H., Abe, A., Yoshida, K., Kosugi, S., Natsume, S., Mitsuoka, C., Uemura, A., Utsushi, H., Tamiru, M., Takuno, S., Innan, H., Cano, L. M., Kamoun, S. and Terauchi, R. (2013).
+> QTL-seq: rapid mapping of quantitative trait loci in rice by whole genome resequencing of DNA from two bulked populations.
+> *Plant J*, 74: 174–183. [doi:10.1111/tpj.12105](https://onlinelibrary.wiley.com/doi/full/10.1111/tpj.12105)
 
 **G prime**
 
