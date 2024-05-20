@@ -49,7 +49,8 @@ QTLseqr can import and filter SNP data, count relative allele frequencies, calcu
 The data for below example analysis and tutorial is drawn from a study on 
 cold tolerance in rice by [Yang, Z et al. (2013)](https://doi.org/10.1371/journal.pone.0068433). It is the same data that Mansfeld and Grumet had used and we only slightly modified their instructions taken from their [github page](https://github.com/bmansfeld/QTLseqr/) and [vignette](https://github.com/bmansfeld/QTLseqr/raw/master/vignettes/QTLseqr.pdf).
 
->Yang Z, Huang D, Tang W, Zheng Y, Liang K, Cutler AJ, et al. (2013) Mapping of Quantitative Trait Loci >Underlying Cold Tolerance in Rice Seedlings via High-Throughput Sequencing of Pooled Extremes. 
+>Yang Z, Huang D, Tang W, Zheng Y, Liang K, Cutler AJ, et al. (2013) Mapping of Quantitative Trait Loci
+>Underlying Cold Tolerance in Rice Seedlings via High-Throughput Sequencing of Pooled Extremes. 
 >PLoS ONE 8(7): e68433. https://doi.org/10.1371/journal.pone.0068433
 
 The raw sequencing data for [Yang Z, et al. (2013)](https://doi.org/10.1371/journal.pone.0068433) is available from NCBI's short read archive in [BioProjet PRJNA198759](https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA198759)
